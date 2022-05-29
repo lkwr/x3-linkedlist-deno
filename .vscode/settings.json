@@ -1,14 +1,5 @@
 {
-	"typescript.tsdk": "node_modules\\typescript\\lib",
-	"eslint.autoFixOnSave": true,
-	"eslint.enable": true,
-	"eslint.run": "onSave",
-	"eslint.validate": ["typescript", "javascript", "json", "jsonc"],
-	"eslint.probe": ["typescript", "javascript", "json", "jsonc"],
-	"files.autoSave": "off",
-	"editor.formatOnSave": false,
-	"editor.defaultFormatter": "dbaeumer.vscode-eslint",
-	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
-	}
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": false
 }

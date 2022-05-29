@@ -1,4 +1,4 @@
-import { LinkedListItem } from "./LinkedListItem";
+import { LinkedListItem } from './LinkedListItem.ts';
 
 /**
  * Implements a linked list structure
@@ -60,7 +60,10 @@ export class LinkedList<T> {
    * @returns `false` if there was a falsy response from the callback, `true` if all elements have been processed "falselesly"
    * @see Array#every
    */
-  public every<C>(callback: (value: T, item: LinkedListItem<T>, list: this) => boolean, thisArg?: C): boolean {
+  public every<C>(
+    callback: (value: T, item: LinkedListItem<T>, list: this) => boolean,
+    thisArg?: C
+  ): boolean {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -78,7 +81,10 @@ export class LinkedList<T> {
    * @param callback decides wether given element should be part of new LinkedList
    * @see Array#filter
    */
-  public filter<C>(callback: (value: T, item: LinkedListItem<T>, list: this) => boolean, thisArg?: C): LinkedList<T> {
+  public filter<C>(
+    callback: (value: T, item: LinkedListItem<T>, list: this) => boolean,
+    thisArg?: C
+  ): LinkedList<T> {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -97,7 +103,10 @@ export class LinkedList<T> {
    * @param callback runs for every value in LinkedList. If it returns truthy, current value is returned.
    * @see Array#find
    */
-  public find<C>(callback: (value: T, item: LinkedListItem<T>, list: this) => boolean, thisArg?: C): T | undefined {
+  public find<C>(
+    callback: (value: T, item: LinkedListItem<T>, list: this) => boolean,
+    thisArg?: C
+  ): T | undefined {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -114,7 +123,10 @@ export class LinkedList<T> {
    * @param callback runs for every LinkedListItem in LinkedList. If it returns truthy, current LinkedListItem is returned.
    * @see Array#findIndex
    */
-  public findItem<C>(callback: (value: T, item: LinkedListItem<T>, list: this) => boolean, thisArg?: C): LinkedListItem<T> | undefined {
+  public findItem<C>(
+    callback: (value: T, item: LinkedListItem<T>, list: this) => boolean,
+    thisArg?: C
+  ): LinkedListItem<T> | undefined {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -132,7 +144,10 @@ export class LinkedList<T> {
    * @param thisArg If given, callback will be bound here
    * @see Array#forEach
    */
-  public forEach<C>(callback: (value: T, item: LinkedListItem<T>, list: this) => void, thisArg?: C): void {
+  public forEach<C>(
+    callback: (value: T, item: LinkedListItem<T>, list: this) => void,
+    thisArg?: C
+  ): void {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -199,7 +214,10 @@ export class LinkedList<T> {
    * @param thisArg If given, callback is bound to thisArg
    * @see Array#map
    */
-  public map<V, C>(callback: (value: T, item: LinkedListItem<T>, list: this) => V, thisArg?: C): LinkedList<V> {
+  public map<V, C>(
+    callback: (value: T, item: LinkedListItem<T>, list: this) => V,
+    thisArg?: C
+  ): LinkedList<V> {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -217,13 +235,31 @@ export class LinkedList<T> {
    * @param initialValue
    * @see Array#reduce
    */
-  public reduce<V>(callback: (accumulator: T, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V): V;
-  public reduce<V>(callback: (accumulator: V, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V, initialValue: V): V;
-  public reduce<V>(callback: (accumulator: V | T, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V, initialValue?: V | T): V | T {
+  public reduce<V>(
+    callback: (accumulator: T, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V
+  ): V;
+  public reduce<V>(
+    callback: (
+      accumulator: V,
+      currentValue: T,
+      currentItem: LinkedListItem<T>,
+      list: this
+    ) => V,
+    initialValue: V
+  ): V;
+  public reduce<V>(
+    callback: (
+      accumulator: V | T,
+      currentValue: T,
+      currentItem: LinkedListItem<T>,
+      list: this
+    ) => V,
+    initialValue?: V | T
+  ): V | T {
     let current = this.first;
     if (!current) {
       if (!initialValue) {
-        throw new TypeError("Empty accumulator on empty LinkedList is not allowed.");
+        throw new TypeError('Empty accumulator on empty LinkedList is not allowed.');
       }
       return initialValue;
     }
@@ -249,16 +285,31 @@ export class LinkedList<T> {
    * @param callback Gets accumulator, value, LinkedListeItem and LinkedList. The response will be used as the next accumulator
    * @param initialValue Initial accumulator being passed to first call
    */
-  public reduceRight<V>(callback: (accumulator: T, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V): V;
-  public reduceRight<V>(callback: (accumulator: V, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V, initialValue: V): V;
   public reduceRight<V>(
-    callback: (accumulator: V | T, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V,
+    callback: (accumulator: T, currentValue: T, currentItem: LinkedListItem<T>, list: this) => V
+  ): V;
+  public reduceRight<V>(
+    callback: (
+      accumulator: V,
+      currentValue: T,
+      currentItem: LinkedListItem<T>,
+      list: this
+    ) => V,
+    initialValue: V
+  ): V;
+  public reduceRight<V>(
+    callback: (
+      accumulator: V | T,
+      currentValue: T,
+      currentItem: LinkedListItem<T>,
+      list: this
+    ) => V,
     initialValue?: V | T
   ): V | T {
     let current = this.last;
     if (!current) {
       if (!initialValue) {
-        throw new TypeError("Empty accumulator on empty LinkedList is not allowed.");
+        throw new TypeError('Empty accumulator on empty LinkedList is not allowed.');
       }
       return initialValue;
     }
@@ -284,7 +335,10 @@ export class LinkedList<T> {
    * @param thisArg If set, callback is bound to this
    * @returns `true` once a callback call returns truthy, `false` if none returned truthy.
    */
-  public some<C>(callback: (currentValue: T, item: LinkedListItem<T>, list: this) => boolean, thisArg?: C): boolean {
+  public some<C>(
+    callback: (currentValue: T, item: LinkedListItem<T>, list: this) => boolean,
+    thisArg?: C
+  ): boolean {
     if (thisArg) {
       callback = callback.bind(thisArg);
     }
@@ -473,7 +527,7 @@ export class LinkedList<T> {
    */
   private getItemByIndex(index: number): LinkedListItem<T> | undefined {
     if (index === undefined) {
-      throw new Error("index must be a number!");
+      throw new Error('index must be a number!');
     }
     if (!this.first) {
       return;

@@ -1,8 +1,0 @@
-**/*.md
-**/package-lock.json
-.history/
-.vscode/
-coverage/
-dist/
-LICENSE
-node_modules/

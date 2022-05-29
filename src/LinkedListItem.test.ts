@@ -1,13 +1,18 @@
-import { LinkedListItem } from "./LinkedListItem";
-type GuranteedBehindLinkedListItem<T> = LinkedListItem<T> & { behind: GuranteedBehindLinkedListItem<number> };
+import { describe, it } from 'https://deno.land/std@0.141.0/testing/bdd.ts';
+import { expect } from 'https://deno.land/x/expect@v0.2.9/mod.ts';
 
-describe("LinkedListItem#constructor", () => {
-  test("holds given value", () => {
-    const item = new LinkedListItem("value");
-    expect(item.value).toBe("value");
+import { LinkedListItem } from './LinkedListItem.ts';
+type GuranteedBehindLinkedListItem<T> = LinkedListItem<T> & {
+  behind: GuranteedBehindLinkedListItem<number>;
+};
+
+describe('LinkedListItem#constructor', () => {
+  it('holds given value', () => {
+    const item = new LinkedListItem('value');
+    expect(item.value).toBe('value');
   });
 
-  test("calls given unlinkCleanup function if given", () => {
+  it('calls given unlinkCleanup function if given', () => {
     let called = false;
     const item = new LinkedListItem(1, (): void => {
       called = true;
@@ -19,8 +24,8 @@ describe("LinkedListItem#constructor", () => {
   });
 });
 
-describe("LinkedListItem#insertBehind", () => {
-  test("inserts given LinkedListItem behind this", () => {
+describe('LinkedListItem#insertBehind', () => {
+  it('inserts given LinkedListItem behind this', () => {
     const itemBefore = new LinkedListItem(0);
     const baseItem = new LinkedListItem(1) as GuranteedBehindLinkedListItem<number>;
     itemBefore.insertBehind(baseItem);
@@ -41,7 +46,7 @@ describe("LinkedListItem#insertBehind", () => {
     expect(baseItem.behind.behind).toBe(itemBehind);
   });
 
-  test("Adds multiple in a row", () => {
+  it('Adds multiple in a row', () => {
     const item1 = new LinkedListItem(1) as GuranteedBehindLinkedListItem<number>;
     const item2 = new LinkedListItem(2);
     const item3 = new LinkedListItem(3);
@@ -64,12 +69,12 @@ describe("LinkedListItem#insertBehind", () => {
       result.push(current.value);
       current = current.behind;
     } while (current);
-    expect(result).toStrictEqual(expectedResult);
+    expect(result).toEqual(expectedResult);
   });
 });
 
-describe("LinkedListItem#unlink", () => {
-  test("unlinks this item from chain, but doesn't remove the chain info from item", () => {
+describe('LinkedListItem#unlink', () => {
+  it("unlinks this item from chain, but doesn't remove the chain info from item", () => {
     const item1 = new LinkedListItem(1);
     const item2 = new LinkedListItem(2);
     const item3 = new LinkedListItem(3);
@@ -86,7 +91,7 @@ describe("LinkedListItem#unlink", () => {
     expect(item2.behind).toBe(item3);
   });
 
-  test("removes the chain info from item if asked to do so", () => {
+  it('removes the chain info from item if asked to do so', () => {
     const item1 = new LinkedListItem(1);
     const item2 = new LinkedListItem(2);
     const item3 = new LinkedListItem(3);
@@ -100,7 +105,7 @@ describe("LinkedListItem#unlink", () => {
     expect(item2.behind).toBeUndefined();
   });
 
-  test("runs given unlinkCleanup function", () => {
+  it('runs given unlinkCleanup function', () => {
     let called = false;
     const item1 = new LinkedListItem(1, (): void => {
       called = true;

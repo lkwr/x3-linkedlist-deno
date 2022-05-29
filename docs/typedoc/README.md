@@ -6,5 +6,5 @@
 
 ### Classes
 
-* [LinkedList](classes/linkedlist.md)
-* [LinkedListItem](classes/linkedlistitem.md)
+- [LinkedList](classes/linkedlist.md)
+- [LinkedListItem](classes/linkedlistitem.md)
